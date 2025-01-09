@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT NOC Resource Hub</title>
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset and Theme */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #0078D4;
+            color: #ffffff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .date-time {
+            font-size: 20px;
+            font-weight: 400;
+            margin-right: 20px;
+        }
+
+        /* Hexagon Container */
+        .hexagon-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .hexagon-item {
+            position: relative;
+            width: 120px;
+            height: 138.6px;
+            margin: 0 10px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hexagon-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hexagon-item:before,
+        .hexagon-item:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+        }
+
+        .hexagon-item:before {
+            bottom: 100%;
+            border-bottom: 34.6px solid #0078D4;
+        }
+
+        .hexagon-item:after {
+            top: 100%;
+            width: 0;
+            border-top: 34.6px solid #0078D4;
+        }
+
+        .hexagon-item .hex-content {
+            width: 120px;
+            height: 120px;
+            background-color: #0078D4;
+            position: absolute;
+            top: 9px;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .hex-content i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .icon-incident { color: #28a745; }
+        .icon-table { color: #007bff; }
+        .icon-problem { color: #dc3545; }
+        .icon-shift { color: #ffc107; }
+        .icon-noc { color: #17a2b8; }
+        .icon-rapid { color: #6f42c1; }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FIT NOC Resource Hub</h1>
+        <div class="date-time" id="dateTime"></div>
+    </header>
+    <div class="hexagon-menu">
+        <a href="Incident Form.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-exclamation-triangle icon-incident"></i>
+                <span>Incident Form</span>
+            </div>
+        </a>
+        <a href="tablegen.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-table icon-table"></i>
+                <span>Table Generator</span>
+            </div>
+        </a>
+        <a href="Problem_generator.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-bug icon-problem"></i>
+                <span>Problem Generator</span>
+            </div>
+        </a>
+        <a href="shift_new.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-sync-alt icon-shift"></i>
+                <span>Shift Handover</span>
+            </div>
+        </a>
+        <a href="pdf_viewer.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-file-pdf icon-noc"></i>
+                <span>NOC SOP</span>
+            </div>
+        </a>
+        <a href="rapid_incident_response.html" class="hexagon-item">
+            <div class="hex-content">
+                <i class="fas fa-bolt icon-rapid"></i>
+                <span>Rapid Incident Response</span>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('dateTime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateDate, 1000);
+        updateDate();
+    </script>
+</body>
+</html>

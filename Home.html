@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT NOC Resource Hub</title>
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset and Glance Theme */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0; /* Light background for tile effect */
+            color: #333; /* Dark text color */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Header Style */
+        header {
+            width: 100%;
+            background-color: #0078D4; /* Solid blue background */
+            color: #ffffff; /* White text color */
+            padding: 15px;
+            display: flex;
+            justify-content: space-between; /* Space between title and date */
+            align-items: center; /* Center items vertically */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        header h1 {
+            font-size: 24px; /* Slightly smaller font size */
+            margin: 0;
+            font-weight: 600; /* Semi-bold for strong appearance */
+        }
+
+        /* Date Style */
+        .date-time {
+            font-size: 20px; /* Increased font size for date */
+            font-weight: 400; /* Regular weight */
+            margin-left: -40px; /* Move left more */
+            margin-right: 30px; /* Increased right margin to prevent overflow */
+        }
+
+        /* Container for Grid Layout */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+            grid-template-rows: repeat(2, 1fr); /* Two equal rows */
+            height: calc(100vh - 60px); /* Full height minus header */
+            width: 100%;
+            gap: 10px; /* Space between grid items */
+            padding: 10px; /* Padding for container */
+        }
+
+        /* Box Style for Tiles */
+        .box {
+            background-color: #ffffff; /* White background for tiles */
+            color: #333; /* Dark text color */
+            display: flex;
+            flex-direction: column; /* Align icon and text vertically */
+            align-items: center;
+            justify-content: center;
+            font-size: 20px; /* Increased font size for text */
+            font-weight: bold; /* Bold text */
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding for larger boxes */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+            overflow: hidden;
+        }
+
+        /* Individual Icon Colors */
+        .icon-incident { color: #28a745; } /* Green for Incident Form */
+        .icon-table { color: #007bff; } /* Blue for Table Generator */
+        .icon-problem { color: #dc3545; } /* Red for Problem Generator */
+        .icon-shift { color: #ffc107; } /* Yellow for Shift Handover */
+        .icon-noc { color: #17a2b8; } /* Cyan for NOC SOP */
+        .icon-rapid { color: #6f42c1; } /* Purple for Rapid Incident Response */
+
+        /* Increased Icon Size */
+        .box i {
+            font-size: 48px; /* Increased icon size */
+            margin-bottom: 10px; /* Space between icon and text */
+        }
+
+        /* Microsoft Hover Effect */
+        .box:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+
+        /* Subtle Slide-in Animation for Boxes */
+        .box {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .box:nth-child(1) { animation-delay: 0.1s; }
+        .box:nth-child(2) { animation-delay: 0.2s; }
+        .box:nth-child(3) { animation-delay: 0.3s; }
+        .box:nth-child(4) { animation-delay: 0.4s; }
+        .box:nth-child(5) { animation-delay: 0.5s; }
+        .box:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FIT NOC Resource Hub</h1>
+        <div class="date-time" id="dateTime"></div>
+    </header>
+    <div class="container">
+        <a href="Incident Form.html" class="box">
+            <i class="fas fa-exclamation-triangle icon-incident"></i> <!-- Icon for Incident Form -->
+            Incident Form
+        </a>
+        <a href="tablegen.html" class="box">
+            <i class="fas fa-table icon-table"></i> <!-- Icon for Table Generator -->
+            Table Generator
+        </a>
+        <a href="Problem_generator.html" class="box">
+            <i class="fas fa-bug icon-problem"></i> <!-- Icon for Problem Generator -->
+            Problem Generator
+        </a>
+       
+        <a href="Email_Enexe.html" class="box">
+            <i class="fa fa-ticket"></i> <!-- Icon for Problem Generator -->
+            Enexe Ticket
+        </a>
+        <a href="Email_Resolove.html" class="box">
+            <i class="fa fa-envelope"></i> <!-- Icon for Problem Generator -->
+            RDB Resolove Email
+        </a>
+        <a href="shift_new.html" class="box">
+            <i class="fas fa-sync-alt icon-shift"></i> <!-- Icon for Shift Handover -->
+            Shift Handover
+        </a>
+        <a href="pdf_viewer.html" class="box">
+            <i class="fas fa-file-pdf icon-noc"></i> <!-- Icon for NOC SOP -->
+            NOC SOP
+        </a>
+        <a href="rapid_incident_response.html" class="box">
+            <i class="fas fa-bolt icon-rapid"></i> <!-- Icon for Rapid Incident Response -->
+            Rapid Incident Response
+        </a>
+    </div>
+
+    <script>
+        // Function to update the date
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('dateTime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateDate, 1000); // Update every second
+        updateDate(); // Initial call to set the date immediately
+    </script>
+</body>
+</html>

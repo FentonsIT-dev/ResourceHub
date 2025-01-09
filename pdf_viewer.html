@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Black background */
+        }
+        iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='Home.html'">Close</button> <!-- Change 'index.html' to your actual home page filename -->
+    <iframe src="assets/Hayleys Group-IT Infrastructure Monitoring SOP v1.pdf" allowfullscreen></iframe>
+</body>
+</html>

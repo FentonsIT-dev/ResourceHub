@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Device Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f8fc;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 10px; /* Padding to give more space */
+            text-align: left;
+            font-size: 16px; /* Increased font size */
+        }
+
+        th {
+            background-color: black; /* Changed header color to black */
+            color: white; /* Changed text color to white for better contrast */
+            font-size: 18px; /* Increased font size for header */
+            letter-spacing: 0.05em;
+        }
+
+        /* Set first column to black */
+        td:first-child {
+            background-color: black; /* Changed first column background color to black */
+            color: white; /* Changed first column text color to white for better contrast */
+        }
+
+        /* Set column widths */
+        th:nth-child(2), td:nth-child(2) { width: 40%; }
+        th:nth-child(3), td:nth-child(3) { width: 20%; }
+        th:nth-child(4), td:nth-child(4) { width: 40%; }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            vertical-align: top; /* Align text to the top */
+            background-color: white; /* Ensure odd rows have a white background */
+        }
+
+        /* Editable div styling to allow for text wrapping */
+        .editable-div {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 6px; /* Increased padding for more space */
+            box-sizing: border-box;
+            min-height: 30px; /* Minimum height */
+            overflow: hidden;
+            white-space: normal; /* Allow wrapping of text */
+            overflow-wrap: break-word; /* Break words to fit within the div */
+            word-wrap: break-word;
+            background-color: #fff;
+            border-radius: 4px;
+            font-size: 16px; /* Increased font size for editable fields */
+        }
+
+        /* Button styles */
+        #download-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        #download-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Error message style */
+        #error-message {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 14px; /* Adjust font size for smaller screens */
+                padding: 8px;
+            }
+
+            .editable-div {
+                padding: 4px;
+            }
+
+            #download-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Monitoring Device/System Table</h2>
+
+<!-- Static Table Structure -->
+<table id="monitoring-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th style="width: 40%;">Monitoring Device/System</th>
+            <th style="width: 20%;">Status</th>
+            <th style="width: 40%;">Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Core Switch</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks1" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>WAN Firewalls</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks2" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>External Firewall (Palo Alto) & IPSec Tunnels</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks3" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Core Internal Firewall (Fortigate)</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks4" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>WLAN (Including APs)</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks5" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Access Switches</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal/ Partially Monitor</td>
+            <td><div id="remarks6" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Avamar Server Backup/Replication</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks7" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Head Office SLT & Dialog ILL Links</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks8" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>vCenter (Physical Host & VM Environment)</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks9" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>SD WAN, Remote IPSec Tunnels</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks10" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Server Room UPS/Temperature</td>
+            <td contenteditable="true" oninput="checkStatusColor(this)">Normal</td>
+            <td><div id="remarks11" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td colspan="2">Name of the Operator</td>
+            <td><div id="remarks12" class="editable-div" contenteditable="true">N/A</div></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Button to download the table as an image -->
+<button id="download-btn">Download Table</button>
+
+<!-- Error message -->
+<div id="error-message">Please provide a valid name in the last row!</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+    // Function to check for the word "problem" in status and change text color
+    function checkStatusColor(element) {
+        if (element.innerText.includes("problem")) {
+            element.style.color = "red";
+        } else {
+            element.style.color = ""; // Reset to default if "problem" is not found
+        }
+    }
+
+    // Download table as an image
+    document.getElementById('download-btn').addEventListener('click', function() {
+        const remarks12 = document.getElementById('remarks12').innerText;
+
+        if (remarks12.trim() === "N/A" || remarks12.trim() === "") {
+            document.getElementById('error-message').style.display = 'block'; // Show error message
+            return; // Prevent downloading
+        } else {
+            document.getElementById('error-message').style.display = 'none'; // Hide error message
+        }
+
+        html2canvas(document.querySelector("#monitoring-table")).then(canvas => {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL("image/png");
+            link.download = 'monitoring-table.png';
+            link.click();
+        });
+    });
+</script>
+
+</body>
+</html>

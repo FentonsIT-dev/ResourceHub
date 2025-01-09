@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shift Handover Form</title>
+<style>
+  /* Form Styles */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+  }
+  .container {
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  .form-section {
+    margin-bottom: 15px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  input[type="text"], input[type="date"], select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .toggle-switch {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .toggle-switch input {
+    display: none;
+  }
+  .toggle-switch label {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #333;
+    background-color: #dcdcdc;
+  }
+  .toggle-switch input:checked + label {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .add-item-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  .items-list {
+    margin-top: 10px;
+  }
+  .item {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .item button {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button[type="button"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button[type="button"]:hover {
+    background-color: #218838;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Network Operations Center Shift Handover Form</h2>
+  
+  <form id="handoverForm">
+    <div class="form-section">
+      <label for="shiftDate">Shift Date:</label>
+      <input type="date" id="shiftDate" name="shiftDate" required>
+    </div>
+
+    <div class="form-section">
+      <label for="shiftTime">Shift Timing:</label>
+      <select id="shiftTime" name="shiftTime" required>
+        <option value="Day Shift">Day Shift (8 AM - 7 PM)</option>
+        <option value="Night Shift">Night Shift (7 PM - 8 AM)</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <label>Outgoing Employee:</label>
+      <div class="toggle-switch">
+        <input type="checkbox" id="induwara" name="outgoingEmployee" value="Induwara">
+        <label for="induwara">Induwara</label>
+        
+        <input type="checkbox" id="lakshan" name="outgoingEmployee" value="Lakshan">
+        <label for="lakshan">Lakshan</label>
+        
+        <input type="checkbox" id="nipun" name="outgoingEmployee" value="Nipun">
+        <label for="nipun">Nipun</label>
+        
+        <input type="checkbox" id="buddila" name="outgoingEmployee" value="Buddila">
+        <label for="buddila">Buddila</label>
+        
+        <input type="checkbox" id="navod" name="outgoingEmployee" value="Navod">
+        <label for="navod">Navod</label>
+        
+        <input type="checkbox" id="vishwa" name="outgoingEmployee" value="Vishwa">
+        <label for="vishwa">Vishwa</label>
+        
+        <input type="checkbox" id="madhawa" name="outgoingEmployee" value="Madhawa">
+        <label for="madhawa">Madhawa</label>
+        
+        <input type="checkbox" id="dewmini" name="outgoingEmployee" value="Dewmini">
+        <label for="dewmini">Dewmini</label>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label>Tasks Completed:</label>
+      <button type="button" onclick="addItem('tasksCompleted')">Add Task</button>
+      <div id="tasksCompleted" class="items-list"></div>
+    </div>
+
+    <div class="form-section">
+      <label>Pending Tasks:</label>
+      <button type="button" onclick="addItem('pendingTasks')">Add Task</button>
+      <div id="pendingTasks" class="items-list"></div>
+    </div>
+
+    <div class="form-section">
+      <label>Critical Incidents:</label>
+      <button type="button" onclick="addItem('criticalIncidents')">Add Incident</button>
+      <div id="criticalIncidents" class="items-list"></div>
+    </div>
+
+    <div class="form-section">
+      <button type="button" onclick="generatePDF()">Download PDF</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const topics = [
+    "SLT Links", "Dialog Links", "Aruba (Wireless Access Points)", "Sector Firewalls", 
+    "Primary Firewall", "Palo Alto", "Firewall Tunnels", "Outlook Inbox", "Server Room Alerts",
+    "IDRAC Alerts", "Critical Alerts", "VCenter", "Avamar", "Other"
+  ];
+
+  function addItem(sectionId) {
+    const section = document.getElementById(sectionId);
+    const div = document.createElement("div");
+    div.className = "item";
+
+    const select = document.createElement("select");
+    topics.forEach(topic => {
+        const option = document.createElement("option");
+        option.value = topic;
+        option.text = topic;
+        select.appendChild(option);
+    });
+
+    const textarea = document.createElement("textarea"); // Use <textarea> instead of <input>
+    textarea.placeholder = `Enter ${sectionId === 'tasksCompleted' ? 'task' : sectionId === 'pendingTasks' ? 'pending task' : 'incident'} details`;
+
+    const removeButton = document.createElement("button");
+    removeButton.innerHTML = "&#x2716;";
+    removeButton.onclick = function() {
+        section.removeChild(div);
+    };
+
+    div.appendChild(select);
+    div.appendChild(textarea); // Append the textarea
+    div.appendChild(removeButton);
+    section.appendChild(div);
+}
+
+
+function generatePDF() {
+    const shiftDate = document.getElementById("shiftDate").value;
+    const shiftTime = document.getElementById("shiftTime").value;
+    const outgoingEmployees = Array.from(document.querySelectorAll(".toggle-switch input:checked"))
+                                    .map(el => el.value)
+                                    .join(", ") || "None";
+
+    function getItemsText(sectionId) {
+        const items = Array.from(document.getElementById(sectionId).querySelectorAll(".item"));
+        return items.map(item => {
+            const dropdown = item.querySelector("select").value;
+            const input = item.querySelector("textarea").value.replace(/\n/g, "<br>"); // Replace newlines with <br>
+            return `<strong>${dropdown}</strong>: ${input}`;
+        }).join(", ");
+    }
+
+    const tasksCompleted = getItemsText("tasksCompleted");
+    const pendingTasks = getItemsText("pendingTasks");
+    const criticalIncidents = getItemsText("criticalIncidents");
+
+    const pdfContent = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; line-height: 1.6; color: #333;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="color: #333; font-size: 26px; margin-bottom: 5px;">FIT Network Operations Center</h1>
+                <h2 style="color: #0066cc; font-size: 22px; margin-top: 0;">Shift Handover Report</h2>
+                <p style="color: #666; font-size: 14px; margin-top: -10px;">Confidential - For Internal Use Only</p>
+            </div>
+
+            <div style="padding: 15px; background-color: #eef4fb; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #0056b3;">
+                <h2 style="color: #0056b3; font-size: 20px; margin-top: 0;">Shift Information</h2>
+                <p><strong>Date:</strong> ${shiftDate}</p>
+                <p><strong>Timing:</strong> ${shiftTime}</p>
+                <p><strong>Outgoing Employees:</strong> ${outgoingEmployees || "No employees selected"}</p>
+            </div>
+
+            <div style="padding: 15px; background-color: #edf7ee; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #28a745;">
+    <h2 style="color: #28a745; font-size: 20px; margin-top: 0;">Tasks Completed</h2>
+    <ul style="margin-left: 20px; color: #333; white-space: normal; word-wrap: break-word; max-width: 100%;">
+        ${tasksCompleted ? tasksCompleted.split(', ').map(task => `<li style="padding-bottom: 5px;">${task}</li>`).join('') : '<li>None</li>'}
+    </ul>
+</div>
+
+<div style="padding: 15px; background-color: #fff9e6; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #ffc107;">
+    <h2 style="color: #ffc107; font-size: 20px; margin-top: 0;">Pending Tasks</h2>
+    <ul style="margin-left: 20px; color: #333; white-space: normal; word-wrap: break-word; max-width: 100%;">
+        ${pendingTasks ? pendingTasks.split(', ').map(task => `<li style="padding-bottom: 5px;">${task}</li>`).join('') : '<li>None</li>'}
+    </ul>
+</div>
+
+<div style="padding: 15px; background-color: #fbeaea; border-radius: 8px; border-left: 5px solid #dc3545;">
+    <h2 style="color: #dc3545; font-size: 20px; margin-top: 0;">Critical Incidents</h2>
+    <ul style="margin-left: 20px; color: #333; white-space: normal; word-wrap: break-word; max-width: 100%;">
+        ${criticalIncidents ? criticalIncidents.split(', ').map(incident => `<li style="padding-bottom: 5px;">${incident}</li>`).join('') : '<li>None</li>'}
+    </ul>
+</div>
+
+    `;
+
+    const pdfContainer = document.createElement("div");
+    pdfContainer.innerHTML = pdfContent;
+
+    html2pdf().from(pdfContainer).save(`shift_handover_${shiftDate || 'report'}.pdf`);
+}
+
+
+</script>
+
+</body>
+</html>

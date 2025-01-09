@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Downloadable HTML</title>
+</head>
+<body>
+	<style>
+		/* General Form Styling */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Label Styling */
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #333;
+}
+
+/* Input and Select Styling */
+input[type="text"], input[type="date"], input[type="time"],input[type="email"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Textarea Styling */
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hover and Focus Effects */
+input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+	</style>
+    <form id="incidentForm">
+        <label for="problem_name">Problem Name:</label>
+        <input type="text" id="problem_name" name="problem_name"><br><br>
+
+        <label for="problemDescription">Problem Description:</label>
+        <textarea id="problemDescription" name="problemDescription"></textarea><br><br>
+
+        <button type="button" onclick="generateHTML()">Generate HTML</button>
+    </form>
+
+    <script>
+    
+
+        function generateHTML() {
+            const problemDescription = document.getElementById('problemDescription').value;
+            const problem_name=document.getElementById('problem_name').value;
+
+            const template = `
+    <table style="width: 570px; border-width: 1px; border-color: #c0c0c0; background-color: #e1e4e8; border-collapse: collapse; height: 632px;">
+        <tbody>
+            <tr>
+                <td style="width: 100%; border: 1px solid #c0c0c0;">
+                    <table style="width: 566px; border-color: #c0c0c0; border-collapse: collapse; height: 641px; border-width: 0px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 100%; border-image: initial; border-color: #c0c0c0;">
+                                    <table style="height: 100px; width: 550px; border-color: #000000; background-color: #ffffff; border-collapse: collapse; border-width: 0px; margin-left: auto; margin-right: auto;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 100%; border-color: #000000;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://i.postimg.cc/rpVMsGJH/IMG-20240610-WA0001-1.jpg" alt="" style="width: 160px; height: 60px;"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table style="height: 323px; width: 550px; border-color: #000000; border-collapse: collapse; border-width: 0px; margin-left: auto; margin-right: auto;">
+                                        <tbody>
+                                            <tr style="height: 61px;">
+                                                <td style="width: 477px; text-align: left;border-radius: 20px; background-color: #4CAF50; height: 75px; border-color: #000000;" colspan="2">
+                                                    <p style="text-align: center;">
+                                                        <span style="color: #ffffff; font-size: 10pt; font-family: Arial;">
+                                                            <strong>
+                                                                <span style="font-size: 18pt;">Ticket Closed <br>${problem_name}<br></span>
+                                                            </strong>
+                                                        </span>
+                                                    </p>
+                                                    </td>
+                                                    </tr>
+                                            <tr style="background: red; height: 30px;">
+                                            <tr style="height: 24px;">
+                                                <td style="width: 477px; text-align: left;border-radius: 10px; background-color: #99cc00; height: 24px; border-color: #000000; padding-top: 10px; padding-bottom: 10px;" colspan="2">
+                                                    <div style="text-align: center;">
+                                                        <span style="font-size: 14pt; font-family: Arial;">
+                                                            <strong>PROBLEM RESOLVED</strong>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                <tr style="height: 120px;">
+                                                <td style="width: 358px; text-align: left; border-color: #000000;">
+                                                     <strong>
+                                                             <span style="font-size: 12pt;"><br>Dear RDB Team,<br></span>
+                                                            </strong>
+                                                    <p style="text-align: left;">
+                                                        <span style="font-family: Arial;">
+                                                            <span style="font-size: 12pt;">${problemDescription}</span>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+     <table style="height: 40px; width: 550px; border-color: #000000; border-collapse: collapse; border-width: 0px; margin-left: auto; margin-right: auto;">
+                                        <tbody>
+                                            <tr style="height: 40px;">
+                                                <td style="width: 100%; text-align: left; border-color: #000000;">
+                                                    <div style="text-align: center;">
+                                                        <span style="font-family: Arial;">
+                                                            <span style="font-size: 1pt;"> <b> .</b></span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table style="height: 30px; width: 550px; border-color: #000000; border-collapse: collapse; border-width: 0px; margin-left: auto; margin-right: auto;">
+                                        <tbody>
+                                            <tr style="height: 30px;">
+                                                <td style="width: 100%; text-align: left; border-color: #000000;">
+                                                    <div style="text-align: center;">
+                                                        <span style="font-family: Arial;">
+                                                            <span style="font-size: 8pt;"><strong/>Thank You For Contacting Hayleys Fentons Network Operation Center</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+`;
+
+
+            const blob = new Blob([template], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `incident_report_${problem_name}.html`;
+            link.click();
+        }
+    </script>
+</body>
+</html>
