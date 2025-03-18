@@ -309,81 +309,72 @@
             ]
         };
 
-        const alertOptions = [
-            " Anydesk","TeamViewer", "IPS Log","UltraViewer","Other" // The "Other" option
-        ];
+  const alertOptions = [
+    "Anydesk", "TeamViewer", "IPS Log", "UltraViewer", "Other" // The "Other" option
+];
 
-        function updateCheckboxes() {
-            const category = document.getElementById('category').value;
-            const checkboxGroup = document.getElementById('checkboxGroup');
-            checkboxGroup.innerHTML = '';
+function updateCheckboxes() {
+    const category = document.getElementById('category').value;
+    const checkboxGroup = document.getElementById('checkboxGroup');
+    
+    // Clear existing checkboxes
+    checkboxGroup.innerHTML = '';
 
-            if (category && checkboxData[category]) {
-                checkboxData[category].forEach(item => {
-                    checkboxGroup.innerHTML += `
-                        <label>
-                            <input type="checkbox" class="item" value="${item.value}" data-label="${item.label}" onchange="showSections(this)">
-                            ${item.label}
-                        </label>
-                        <div class="section-group" data-item="${item.value}" style="display: none;">
-                            <select class="alert-dropdown" data-item="${item.value}" onchange="handleAlertDropdownChange(this)">
-                                <option value="">Select Alert Type</option>
-                                ${alertOptions.map(option => `<option value="${option}">${option}</option>`).join('')}
-                            </select>
-                            <input type="text" class="other-textbox" placeholder="Enter other alert type" data-item="${item.value}" style="display: none;">
-                            <input type="text" class="alert-count" placeholder="Enter Alert Count" data-item="${item.value}" required>
-                            <textarea class="incident-description" placeholder="Describe the incident in detail..." rows="5"></textarea><br>
-                            <button type="button" onclick="addMoreSections(this)">Add More</button>
-                        </div>
-                        <br>
-                    `;
-                });
-            }
-        }
+    // Check if category exists and has associated checkbox data
+    if (category && checkboxData[category]) {
+        checkboxData[category].forEach(item => {
+            const checkboxContainer = document.createElement('div');
+            checkboxContainer.innerHTML = `
+                <label>
+                    <input type="checkbox" class="item" value="${item.value}" data-label="${item.label}" onchange="showSections(this)">
+                    ${item.label}
+                </label>
+            `;
+            
+            // Create section group
+            const sectionGroup = document.createElement('div');
+            sectionGroup.classList.add('section-group');
+            sectionGroup.setAttribute('data-item', item.value);
+            sectionGroup.style.display = 'none';
+            sectionGroup.innerHTML = `
+                <select class="alert-dropdown" data-item="${item.value}" onchange="handleAlertDropdownChange(this)">
+                    <option value="">Select Alert Type</option>
+                    ${alertOptions.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+                <select class="other-dropdown" data-item="${item.value}" style="display: none;">
+                    <option value="CustomOption1">Custom Option 1</option>
+                    <option value="CustomOption2">Custom Option 2</option>
+                    <option value="CustomOption3">Custom Option 3</option>
+                </select>
+                <input type="text" class="other-textbox" placeholder="Enter other alert type" data-item="${item.value}" style="display: none;">
+                <input type="text" class="alert-count" placeholder="Enter Alert Count" data-item="${item.value}" required>
+                <textarea class="incident-description" placeholder="Describe the incident in detail..." rows="5"></textarea><br>
+                <button type="button" onclick="addMoreSections(this)">Add More</button>
+            `;
+            
+            checkboxContainer.appendChild(sectionGroup);
+            checkboxGroup.appendChild(checkboxContainer);
+        });
+    }
+}
 
-        function showSections(checkbox) {
-            const sectionGroup = checkbox.closest('label').nextElementSibling;
-            sectionGroup.style.display = checkbox.checked ? 'block' : 'none';
-        }
+// Function to handle the dropdown change and toggle the visibility of the textbox or dropdown
+function handleAlertDropdownChange(selectElement) {
+    const sectionGroup = selectElement.closest('.section-group');
+    const otherTextbox = sectionGroup.querySelector('.other-textbox');
+    const otherDropdown = sectionGroup.querySelector('.other-dropdown');
 
-        function handleAlertDropdownChange(selectElement) {
-            const selectedValue = selectElement.value;
-            const otherTextbox = selectElement.nextElementSibling;
-
-            if (selectedValue === "Other") {
-                otherTextbox.style.display = 'block';
-            } else {
-                otherTextbox.style.display = 'none';
-            }
-        }
-
-        function addMoreSections(button) {
-            const sectionGroup = button.closest('.section-group');
-            sectionGroup.insertAdjacentHTML('beforeend', `
-                <div class="additional-sections">
-                    <select class="alert-dropdown" onchange="handleAlertDropdownChange(this)">
-                        <option value="">Select Alert Type</option>
-                        ${alertOptions.map(option => `<option value="${option}">${option}</option>`).join('')}
-                    </select>
-                    <input type="text" class="other-textbox" placeholder="Enter other alert type" style="display: none;">
-                    <input type="text" class="alert-count" placeholder="Enter Alert Count" required>
-                    <textarea class="incident-description" placeholder="Describe the incident in detail..." rows="5"></textarea><br>                   
-                    <button type="button" onclick="addMoreSections(this)">Add More</button>
-                    <button type="button" onclick="removeSection(this)">Remove</button>
-                </div>
-            `);
-        }
-
-        function removeSection(button) {
-            const sectionGroup = button.closest('.section-group');
-            if (sectionGroup.querySelectorAll('.additional-sections').length > 0) {
-                button.closest('.additional-sections').remove();
-            } else {
-                // If this is the only section, hide the entire group
-                sectionGroup.style.display = 'none';
-                sectionGroup.previousElementSibling.querySelector('input').checked = false;
-            }
-        }
+    if (selectElement.value === "Other") {
+        otherTextbox.style.display = 'block'; // Show the text input
+        otherDropdown.style.display = 'none'; // Hide the dropdown
+    } else if (selectElement.value === "") {
+        otherTextbox.style.display = 'none'; // Hide the text input
+        otherDropdown.style.display = 'none'; // Hide the dropdown
+    } else {
+        otherTextbox.style.display = 'none'; // Hide the text input
+        otherDropdown.style.display = 'none'; // Hide the dropdown
+    }
+}
 
 
 
