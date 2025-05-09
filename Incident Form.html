@@ -645,35 +645,38 @@
  
      <div class="report-container">
          <div class="image-container">
-             <img src="https://i.ibb.co/LQQ2vVw/sample-image.jpg" alt="Company Logo">
+             <img src="${categoryForTitle === 'Agro' ? 'https://ibb.co/hFj6dd1g' : 
+                         categoryForTitle === 'Fiber' ? 'https://ibb.co/BKGZkvbx' : 
+                         categoryForTitle === 'Advantis' ? 'https://i.ibb.co/LQQ2vVw/advantis-logo.jpg' : 
+                         categoryForTitle === 'Alumex' ? 'https://i.ibb.co/LQQ2vVw/alumex-logo.jpg' : 
+                         categoryForTitle === 'Aventura' ? 'https://i.ibb.co/LQQ2vVw/aventura-logo.jpg' : 
+                         categoryForTitle === 'Leisure' ? 'https://i.ibb.co/LQQ2vVw/leisure-logo.jpg' : 
+                         categoryForTitle === 'South_Asian_Textiles' ? 'https://i.ibb.co/LQQ2vVw/sat-logo.jpg' : 
+                         categoryForTitle === 'Mabroc' ? 'https://i.ibb.co/LQQ2vVw/mabroc-logo.jpg' : 
+                         categoryForTitle === 'Fabric' ? 'https://i.ibb.co/LQQ2vVw/fabric-logo.jpg' : 
+                         categoryForTitle === 'DPL' ? 'https://i.ibb.co/LQQ2vVw/dpl-logo.jpg' : 
+                         categoryForTitle === 'Haycarb' ? 'https://i.ibb.co/LQQ2vVw/haycarb-logo.jpg' : 
+                         categoryForTitle === 'Martin_Boure' ? 'https://i.ibb.co/LQQ2vVw/martin-boure-logo.jpg' : 
+                         categoryForTitle === 'Fentons' ? 'https://i.ibb.co/LQQ2vVw/fentons-logo.jpg' : 
+                         categoryForTitle === 'HO' ? 'https://i.ibb.co/LQQ2vVw/ho-logo.jpg' : 
+                         'https://i.ibb.co/LQQ2vVw/default-logo.jpg'}" 
+                  alt="Company Logo">
              <img src="https://i.postimg.cc/rpVMsGJH/IMG-20240610-WA0001-1.jpg" alt="Top Right Image">
          </div>
          <div class="report-header">
              ${categoryForTitle} Incident Report
          </div>
- 
          <div class="report-section">
              <h3>Incident Tracking Number:</h3>
              <p><span>Tracking Number:</span>${trackingNumber}</p>
          </div>
- 
          <div class="report-section">
-             <h3>1. Contact Information for this Incident:</h3>
-             <p><span>Name:</span> Sandun De Zoysa</p>
-             <p><span>Organization:</span> Hayleys ${categoryForTitle}</p>
-             <p><span>Title:</span> Deputy General Manager</p>
-             <p><span>Mobile:</span> 0777751592</p>
-             <p><span>Email:</span> sg.zoysa@groupit.hayleys.com</p>
-             <p><span>Address:</span> Corporate office, No.400, Deans Road, Colombo.</p>
-         </div>
- 
-         <div class="report-section">
-             <h3>2. Sector:</h3>
+             <h3>1. Sector:</h3>
              <p><span>Sector:</span> ${sector}<p>
          </div>
  
          <div class="report-section">
-             <h3>3. Physical Location of Affected Computer:</h3>
+             <h3>2. Physical Location of Affected Computer:</h3>
              <p> 
                          <ol style="font-size: 16px; padding-left: 10px; ">
                              ${checkedItems}
@@ -681,45 +684,45 @@
          </div>
  
          <div class="report-section">
-             <h3>4. Date and Time Incident Occurred:</h3>
+             <h3>3. Date and Time Incident Occurred:</h3>
              <p><span>Date:</span> ${startDate} to ${endDate}</p>
              <p><span>Time:</span> ${startTime} to ${endTime}</p>
          </div>
  
          <div class="report-section">
-             <h3>5. Is the affected system/network critical to the organization’s mission?</h3>
+             <h3>4. Is the affected system/network critical to the organization’s mission?</h3>
              <p><span>Critical:</span> Yes </p>
          </div>
  
          <div class="report-section">
-             <h3>6. Information of Affected System:</h3>
+             <h3>5. Information of Affected System:</h3>
              <div style="margin-bottom: 20px;">
                          ${items.length > 0 ? itemTable : ''}
                      </div>
          </div>
  
          <div class="report-section">
-             <h3>7. Type of Incident:</h3>
+             <h3>6. Type of Incident:</h3>
              <p>${incident}</p>
          </div>
  
          <div class="report-section">
-             <h3>8. Description of Incident:</h3>
+             <h3>7. Description of Incident:</h3>
              <p> ${alertCountData} </p>
          </div>
  
          <div class="report-section">
-             <h3>9. Unusual behavior/symptoms:</h3>
+             <h3>8. Unusual behavior/symptoms:</h3>
              <p>${unusual}</p>
          </div>
  
          <div class="report-section">
-             <h3>10. When and How was the incident detected:</h3>
+             <h3>9. When and How was the incident detected:</h3>
              <p>Through Forti Analyzer</p>
          </div>
  
          <div class="report-section">
-             <h3>11. Additional Information: (Include any other details noticed, relevant to the Security Incident.)</h3>
+             <h3>10. Additional Information: (Include any other details noticed, relevant to the Security Incident.)</h3>
              <p>Whether log being submitted: Yes</p>
              <p>Mode of submission: Outlook</p>
          </div>
